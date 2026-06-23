@@ -76,11 +76,16 @@
     <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.378.0/dist/umd/lucide-react.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        Babel.registerPreset('react-classic', {
+            presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]]
+        });
+    </script>
 </head>
 
 <body class="bg-slate-50 text-gray-900">
     <div id="root"></div>
-    <script type="text/babel">
+    <script type="text/babel" data-presets="react-classic">
         const { useState, useRef } = window.React;
         const {
             BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip: RTooltip, Legend,
@@ -696,6 +701,9 @@
                 } catch (e) { return []; }
             });
 
+            const dragItemRef = window.React.useRef(null);
+            const [dragOverIndex, setDragOverIndex] = window.React.useState(null);
+
             if (!isLoggedIn) {
                 return <LoginGatePage setIsLoggedIn={setIsLoggedIn} setView={setView} tr={tr} />;
             }
@@ -750,9 +758,6 @@
             const pinnedList = filtered.filter(d => pinnedTopics.includes(d.topic));
             const activeList = filtered.filter(d => !pinnedTopics.includes(d.topic) && !pausedTopics.includes(d.topic));
             const pausedList = filtered.filter(d => pausedTopics.includes(d.topic));
-
-            const dragItemRef = window.React.useRef(null); // stores { index, isPinned }
-            const [dragOverIndex, setDragOverIndex] = window.React.useState(null); // stores { index, isPinned }
 
             const handleDragStart = (e, index, isPinnedSection) => {
                 dragItemRef.current = { index, isPinned: isPinnedSection };
