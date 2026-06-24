@@ -1009,6 +1009,9 @@
             const [tab, setTab] = useState(() => {
                 return localStorage.getItem('agi_results_tab') || 'article';
             });
+            const [sortBy, setSortBy] = useState('newest');
+            const [itemsPerPage, setItemsPerPage] = useState(10);
+            const [currentPage, setCurrentPage] = useState(1);
             const handleSetTab = (newTab) => {
                 setTab(newTab);
                 localStorage.setItem('agi_results_tab', newTab);
@@ -1036,6 +1039,21 @@
                                 <input type="text" placeholder={tr.filterSearch} className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm" />
                             </div>
                             <div className="space-y-6">
+                                <div>
+                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5">排序依照</h4>
+                                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="w-full p-2 bg-slate-50 border border-slate-100 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer">
+                                        <option value="newest">出版時間新&gt;舊</option>
+                                        <option value="oldest">出版時間舊&gt;新</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5">每頁顯示</h4>
+                                    <select value={itemsPerPage} onChange={(e) => { setItemsPerPage(Number(e.target.value)); setCurrentPage(1); }} className="w-full p-2 bg-slate-50 border border-slate-100 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer">
+                                        <option value={10}>10筆</option>
+                                        <option value={30}>30筆</option>
+                                        <option value={50}>50筆</option>
+                                    </select>
+                                </div>
                                 {[
                                     { label: tr.filterRegion, items: ['台灣', '韓國', '日本', '中國', '美國'] },
                                     { label: tr.filterYear, items: ['2025–2026', '2023–2024', '2021–2022', '2020 及以前'] },
@@ -1077,7 +1095,10 @@
 
                         {tab === 'article' && (
                             <div className="space-y-4 animate-fadeIn">
-                                {domainData.articles.map(item => (
+                                {[...domainData.articles]
+                                    .sort((a, b) => sortBy === 'newest' ? b.year - a.year : a.year - b.year)
+                                    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                                    .map(item => (
                                     <div key={item.id} className="bg-white p-5 rounded-xl border border-slate-100 hover:border-indigo-200 hover:shadow-md transition-all group card-hover">
                                         <div className="flex justify-between items-start mb-3 gap-4">
                                             <h3 className="text-base font-bold text-slate-800 group-hover:text-indigo-700 transition-colors leading-snug">{item.title}</h3>
