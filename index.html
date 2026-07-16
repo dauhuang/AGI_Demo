@@ -31,6 +31,22 @@
     <style>
         body {
             font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+            line-height: 1.55;
+            letter-spacing: 0.02em;
+        }
+
+        .section-title {
+            font-weight: 600 !important;
+            letter-spacing: 0.06em !important;
+            color: #1e293b !important;
+            font-family: "PingFang TC", "Noto Sans TC", sans-serif !important;
+        }
+
+        .section-title-white {
+            font-weight: 600 !important;
+            letter-spacing: 0.06em !important;
+            color: #ffffff !important;
+            font-family: "PingFang TC", "Noto Sans TC", sans-serif !important;
         }
 
         .hide-scrollbar::-webkit-scrollbar {
@@ -106,7 +122,7 @@
             Search = ic('Search'), Send = ic('Send'), Sparkles = ic('Sparkles'), Star = ic('Star'), Tag = ic('Tag'),
             TrendingUp = ic('TrendingUp'), Users = ic('Users'), Zap = ic('Zap'), Bell = ic('Bell'),
             Check = ic('Check'), Shield = ic('Shield'), GripVertical = ic('GripVertical'), Eye = ic('Eye'), EyeOff = ic('EyeOff'), Pin = ic('Pin'), ExternalLink = ic('ExternalLink'),
-            Calculator = ic('Calculator'), Coins = ic('Coins'), PiggyBank = ic('PiggyBank'), Flame = ic('Flame');
+            Calculator = ic('Calculator'), Coins = ic('Coins'), PiggyBank = ic('PiggyBank'), Flame = ic('Flame'), X = ic('X');
 
         // ─── TRANSLATIONS ──────────────────────────────────────────────
         const TR = {
@@ -116,6 +132,7 @@
                 monitorLabel: '當前監測域', manageBtn: '管理追蹤詞彙', yourKeywords: '您的專屬監測關鍵字',
                 bannerBadge: '最新發布', bannerTitle: '2026 第一季 全球半導體與 AI 前沿研究趨勢季報已出爐！', bannerCta: '點擊查看最新技術熱點與研究突破分析',
                 heroTitle: '次世代研發與人才智庫', heroSubtitle: '為企業 R&D 團隊彙整全球頂尖科研成果，精準監測技術動態與核心貢獻者',
+                heroCta: '免費預約演示與體驗', heroCtaSub: '免費體驗，最快 1 個工作日內為您安排',
                 dashDocsTitle: '您追蹤領域本季新增', dashDocsUnit: '篇', dashDocsGrowth: '較上季成長 12%',
                 dashExpertTitle: '您關注的專家動態', dashExpertVal: '發現 12 位專家', dashExpertSub: '發布新研究',
                 dashExpertTopic: '集中於先進封裝與矽光子領域',
@@ -173,11 +190,38 @@
                 roiInputHeadcount: '研發人員數', roiInputSalary: '平均年薪（含福利）',
                 roiWasteLabel: '每年虛耗在低效檢索的研發成本', roiSavingsLabel: '導入 AGI 後，每年淨省下',
                 roiPlanLabel: '系統建議方案', roiMultiplier: (n) => `= AGI 年費的 ${n} 倍`,
-                roiCta: '立即登入，把這筆錢留下來',
+                roiCta: '立即預約演示',
                 roiFootnote: '資料來源：《Design Studies》〈How design engineers spend their time〉。試算結果為估算值，僅供參考，實際節省效益依企業使用情況而異。',
                 roiPlanStarter: '入門版', roiPlanPro: '專業版', roiPlanFlagship: '旗艦版',
                 roiPlanStarterTarget: '中小型研發團隊', roiPlanProTarget: '中大型上市公司、多產品線', roiPlanFlagshipTarget: '跨國巨頭',
+                roiPlanStarterFreq: '每半年', roiPlanProFreq: '每季', roiPlanFlagshipFreq: '每月',
                 roiPeopleUnit: '人', roiPerYear: '/ 年',
+                pricingBadge: '訂閱方案', pricingTitle: '選擇最適合您研發規模的方案',
+                pricingSubtitle: '彈性配額微觀關鍵詞，從中小型研發團隊到跨國巨頭，讓每一分投資都精準命中檢索痛點。',
+                pricingFeatureAudience: '建議適用對象', pricingFeatureKeywords: '指定關鍵詞', pricingFeatureAdjust: '免費調整關鍵詞', pricingFeaturePrice: '年費方案',
+                pricingRecommendedBadge: '最受歡迎', pricingCta: '申請免費試用與專人演示', pricingKeywordUnit: '個',
+                contactPageBadge: '免費試用申請', contactPageTitle: '申請免費試用與專人演示',
+                contactPageSubtitle: '留下您的聯絡資訊，AGI 專屬顧問將於 1 個工作日內與您聯繫，為您安排免費試用帳號與產品演示。',
+                contactCompany: '公司名稱', contactName: '聯絡人姓名', contactEmail: '企業信箱', contactPhone: '聯絡電話',
+                contactPlan: '感興趣的方案', contactPlanUndecided: '尚未確定', contactHeadcount: '研發團隊人數',
+                contactMessage: '需求說明（選填）', contactSubmit: '送出申請',
+                contactSuccessTitle: '申請已送出！', contactSuccessDesc: '感謝您的申請，AGI 專屬顧問將於 1 個工作日內與您聯繫，為您安排免費試用與產品演示。',
+                navFeatures: '產品特色', navRoi: 'ROI 試算', navSubscribe: '訂閱功能', navPricing: '定價方案', navContact: '聯絡我們',
+                subIntroBadge: '智慧訂閱', subIntroTitle: '主動推送，不必再手動搜尋',
+                subIntroDesc: '系統即時追蹤您關注的技術領域，自動彙整最新文獻與活躍專家，直接送到您的儀表板。',
+                subIntroF1Title: '即時通知', subIntroF1Desc: '新文獻、新專家一次到位，主動推送到您的專屬儀表板，不錯過任何更新。',
+                subIntroF2Title: '熱度追蹤', subIntroF2Desc: '自動偵測技術領域熱度異常上升，搶先掌握突破性研究動向。',
+                subIntroF3Title: '人才雷達', subIntroF3Desc: '同步鎖定活躍發文的核心貢獻者，加速產學合作與人才布局。',
+                mechBadge: '核心機制', mechTitle: '三大核心機制：全面突破企業研發效能',
+                mechCol1Before: '從被動大海撈針', mechCol1After: '轉為主動精準推播',
+                mechCol1Pain: '多平台手動檢索的低效工時',
+                mechCol1Benefit: '主動監測 30 至 50 個客製化微觀關鍵字，將海量數據精煉為決策級技術趨勢季報',
+                mechCol2Before: '從防範資訊幻覺', mechCol2After: '轉為權威情報決策',
+                mechCol2Pain: '花大把時間辨識論文真偽與防範 AI 幻覺風險',
+                mechCol2Benefit: '提供絕對權威、無幻覺情報，精準列出全球核心技術貢獻者',
+                mechCol3Before: '從傳統檢索盲區', mechCol3After: '轉為全域脈絡整合',
+                mechCol3Pain: '跨國與跨平台文獻零散，撈取極度耗時',
+                mechCol3Benefit: '匯整歐美中日韓頂尖內容，即時獲得最新產學情報',
             },
             'zh-CN': {
                 platformName: '华艺全球研发洞察', platformEn: 'Airiti Global R&D Insight',
@@ -185,6 +229,7 @@
                 monitorLabel: '当前监测域', manageBtn: '管理追踪词汇', yourKeywords: '您的专属监测关键字',
                 bannerBadge: '最新发布', bannerTitle: '2026 第一季 全球半导体与 AI 前沿研究趋势季报已出炉！', bannerCta: '点击查看最新技术热点与研究突破分析',
                 heroTitle: '次世代研发与人才智库', heroSubtitle: '为企业 R&D 团队汇整全球顶尖科研成果，精准监测技术动态与核心贡献者',
+                heroCta: '免费预约演示与体验', heroCtaSub: '免费体验，最快 1 个工作日内为您安排',
                 dashDocsTitle: '您追踪领域本季新增', dashDocsUnit: '篇', dashDocsGrowth: '较上季成长 12%',
                 dashExpertTitle: '您关注的专家动态', dashExpertVal: '发现 12 位专家', dashExpertSub: '发布新研究',
                 dashExpertTopic: '集中于先进封装与硅光子领域',
@@ -243,11 +288,38 @@
                 roiInputHeadcount: '研发人员数', roiInputSalary: '平均年薪（含福利）',
                 roiWasteLabel: '每年虚耗在低效检索的研发成本', roiSavingsLabel: '导入 AGI 后，每年净省下',
                 roiPlanLabel: '系统建议方案', roiMultiplier: (n) => `= AGI 年费的 ${n} 倍`,
-                roiCta: '立即登录，把这笔钱留下来',
+                roiCta: '立即预约演示',
                 roiFootnote: '数据来源：《Design Studies》〈How design engineers spend their time〉。试算结果为估算值，仅供参考，实际节省效益依企业使用情况而异。',
                 roiPlanStarter: '入门版', roiPlanPro: '专业版', roiPlanFlagship: '旗舰版',
                 roiPlanStarterTarget: '中小型研发团队', roiPlanProTarget: '中大型上市公司、多产品线', roiPlanFlagshipTarget: '跨国巨头',
+                roiPlanStarterFreq: '每半年', roiPlanProFreq: '每季度', roiPlanFlagshipFreq: '每月',
                 roiPeopleUnit: '人', roiPerYear: '/ 年',
+                pricingBadge: '订阅方案', pricingTitle: '选择最适合您研发规模的方案',
+                pricingSubtitle: '弹性配额微观关键词，从中小型研发团队到跨国巨头，让每一分投资都精准命中检索痛点。',
+                pricingFeatureAudience: '建议适用对象', pricingFeatureKeywords: '指定关键词', pricingFeatureAdjust: '免费调整关键词', pricingFeaturePrice: '年费方案',
+                pricingRecommendedBadge: '最受欢迎', pricingCta: '申请免费试用与专人演示', pricingKeywordUnit: '个',
+                contactPageBadge: '免费试用申请', contactPageTitle: '申请免费试用与专人演示',
+                contactPageSubtitle: '留下您的联络资讯，AGI 专属顾问将于 1 个工作日内与您联系，为您安排免费试用账号与产品演示。',
+                contactCompany: '公司名称', contactName: '联络人姓名', contactEmail: '企业信箱', contactPhone: '联络电话',
+                contactPlan: '感兴趣的方案', contactPlanUndecided: '尚未确定', contactHeadcount: '研发团队人数',
+                contactMessage: '需求说明（选填）', contactSubmit: '送出申请',
+                contactSuccessTitle: '申请已送出！', contactSuccessDesc: '感谢您的申请，AGI 专属顾问将于 1 个工作日内与您联系，为您安排免费试用与产品演示。',
+                navFeatures: '产品特色', navRoi: 'ROI 试算', navSubscribe: '订阅功能', navPricing: '定价方案', navContact: '联络我们',
+                subIntroBadge: '智能订阅', subIntroTitle: '主动推送，不必再手动搜索',
+                subIntroDesc: '系统实时追踪您关注的技术领域，自动汇整最新文献与活跃专家，直接送到您的仪表板。',
+                subIntroF1Title: '即时通知', subIntroF1Desc: '新文献、新专家一次到位，主动推送到您的专属仪表板，不错过任何更新。',
+                subIntroF2Title: '热度追踪', subIntroF2Desc: '自动侦测技术领域热度异常上升，抢先掌握突破性研究动向。',
+                subIntroF3Title: '人才雷达', subIntroF3Desc: '同步锁定活跃发文的核心贡献者，加速产学合作与人才布局。',
+                mechBadge: '核心机制', mechTitle: '三大核心机制：全面突破企业研发效能',
+                mechCol1Before: '从被动大海捞针', mechCol1After: '转为主动精准推播',
+                mechCol1Pain: '多平台手动检索的低效工时',
+                mechCol1Benefit: '主动监测 30 至 50 个客制化微观关键字，将海量数据精炼为决策级技术趋势季报',
+                mechCol2Before: '从防范资讯幻觉', mechCol2After: '转为权威情报决策',
+                mechCol2Pain: '花大把时间辨识论文真伪与防范 AI 幻觉风险',
+                mechCol2Benefit: '提供绝对权威、无幻觉情报，精准列出全球核心技术贡献者',
+                mechCol3Before: '从传统检索盲区', mechCol3After: '转为全域脉络整合',
+                mechCol3Pain: '跨国与跨平台文献零散，捞取极度耗时',
+                mechCol3Benefit: '汇整欧美中日韩顶尖内容，即时获得最新产学情报',
             },
             'en': {
                 platformName: 'Airiti Global R&D Insight', platformEn: 'AGI Platform',
@@ -255,6 +327,7 @@
                 monitorLabel: 'Current Domain', manageBtn: 'Manage Keywords', yourKeywords: 'Your Monitored Keywords',
                 bannerBadge: 'New Release', bannerTitle: '2026 Q1 Global Semiconductor & AI Research Trends Report is now available!', bannerCta: 'Click to view latest tech hotspots and breakthrough analysis',
                 heroTitle: 'Next-Gen R&D & Talent Intelligence', heroSubtitle: 'Aggregate global top research outputs for your R&D team, and precisely monitor technology dynamics and key contributors.',
+                heroCta: 'Book a Free Demo', heroCtaSub: "Free trial — we'll reach out within 1 business day",
                 dashDocsTitle: 'New in Your Monitored Domains', dashDocsUnit: '', dashDocsGrowth: '↑ 12% vs. last quarter',
                 dashExpertTitle: 'Expert Activity of Interest', dashExpertVal: '12 Experts Found', dashExpertSub: 'Published New Research',
                 dashExpertTopic: 'Advanced Packaging & Silicon Photonics',
@@ -312,11 +385,38 @@
                 roiInputHeadcount: 'R&D Headcount', roiInputSalary: 'Avg. Annual Cost / Employee',
                 roiWasteLabel: 'Wasted on inefficient retrieval / year', roiSavingsLabel: 'Net savings with AGI / year',
                 roiPlanLabel: 'Recommended Plan', roiMultiplier: (n) => `= ${n}x AGI's annual fee`,
-                roiCta: "Log In to Lock In These Savings",
+                roiCta: "Book a Demo Now",
                 roiFootnote: 'Source: Design Studies, "How design engineers spend their time." Estimates only; actual savings vary by organization.',
                 roiPlanStarter: 'Starter', roiPlanPro: 'Professional', roiPlanFlagship: 'Flagship',
                 roiPlanStarterTarget: 'Small & mid-size R&D teams', roiPlanProTarget: 'Large listed companies, multi-product lines', roiPlanFlagshipTarget: 'Multinational enterprises',
+                roiPlanStarterFreq: 'Every 6 months', roiPlanProFreq: 'Quarterly', roiPlanFlagshipFreq: 'Monthly',
                 roiPeopleUnit: '', roiPerYear: '/ yr',
+                pricingBadge: 'Subscription Plans', pricingTitle: 'Choose the Plan That Fits Your R&D Scale',
+                pricingSubtitle: 'Flexible micro-keyword quotas, from small R&D teams to multinational enterprises — make every dollar hit the retrieval pain point precisely.',
+                pricingFeatureAudience: 'Recommended For', pricingFeatureKeywords: 'Designated Keywords', pricingFeatureAdjust: 'Free Keyword Adjustment', pricingFeaturePrice: 'Annual Fee',
+                pricingRecommendedBadge: 'Most Popular', pricingCta: 'Request a Free Trial & Live Demo', pricingKeywordUnit: '',
+                contactPageBadge: 'Free Trial Request', contactPageTitle: 'Request a Free Trial & Live Demo',
+                contactPageSubtitle: "Leave your contact info and an AGI specialist will reach out within 1 business day to set up your free trial and product demo.",
+                contactCompany: 'Company Name', contactName: 'Contact Name', contactEmail: 'Business Email', contactPhone: 'Phone Number',
+                contactPlan: 'Plan of Interest', contactPlanUndecided: 'Not Sure Yet', contactHeadcount: 'R&D Team Size',
+                contactMessage: 'Additional Notes (optional)', contactSubmit: 'Submit Request',
+                contactSuccessTitle: 'Request Submitted!', contactSuccessDesc: "Thanks for reaching out — an AGI specialist will contact you within 1 business day to arrange your free trial and demo.",
+                navFeatures: 'Features', navRoi: 'ROI Calculator', navSubscribe: 'Subscriptions', navPricing: 'Pricing', navContact: 'Contact Us',
+                subIntroBadge: 'Smart Subscriptions', subIntroTitle: 'Proactive Alerts — No More Manual Searching',
+                subIntroDesc: 'The system continuously tracks your monitored technology domains, automatically compiling the latest papers and active experts straight to your dashboard.',
+                subIntroF1Title: 'Real-Time Alerts', subIntroF1Desc: 'New papers and experts land directly on your dashboard the moment they appear — never miss an update.',
+                subIntroF2Title: 'Trend Tracking', subIntroF2Desc: 'Automatically detects surges in technology heat, so you catch breakthrough research first.',
+                subIntroF3Title: 'Talent Radar', subIntroF3Desc: 'Pinpoints the most active contributors in real time to accelerate industry-academia collaboration and hiring.',
+                mechBadge: 'Core Advantages', mechTitle: 'Three Core Mechanisms That Transform R&D Efficiency',
+                mechCol1Before: 'From Manual Needle-in-a-Haystack', mechCol1After: 'To Proactive, Precision Delivery',
+                mechCol1Pain: 'Hours lost to inefficient manual searches across multiple platforms',
+                mechCol1Benefit: 'Actively monitors 30–50 custom micro-keywords, distilling massive data into decision-ready quarterly trend reports',
+                mechCol2Before: 'From Guarding Against AI Hallucinations', mechCol2After: 'To Authoritative Intelligence',
+                mechCol2Pain: 'Countless hours spent verifying paper authenticity and guarding against AI hallucination risk',
+                mechCol2Benefit: 'Delivers fully authoritative, hallucination-free intelligence, precisely identifying top global technical contributors',
+                mechCol3Before: 'From Traditional Search Blind Spots', mechCol3After: 'To Fully Integrated Global Context',
+                mechCol3Pain: 'Fragmented literature across countries and platforms is extremely time-consuming to gather',
+                mechCol3Benefit: 'Aggregates top content from the US, Europe, China, Japan and Korea for real-time industry-academia intelligence',
             }
         };
 
@@ -514,14 +614,24 @@
             const [domainOpen, setDomainOpen] = useState(false);
             const [langOpen, setLangOpen] = useState(false);
             const [companyOpen, setCompanyOpen] = useState(false);
+            const scrollToSection = (id) => {
+                if (currentView !== 'landing') {
+                    setView('landing');
+                    setTimeout(() => { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+                } else {
+                    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
             return (
                 <div className="sticky top-0 z-50 flex flex-col">
-                    <div onClick={() => setView('reportsList')} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 cursor-pointer transition-colors flex justify-center items-center gap-3 group">
-                        <span className="bg-amber-400 text-amber-900 text-[10px] font-black px-2 py-0.5 rounded-sm uppercase tracking-wider flex-shrink-0 animate-pulse">{tr.bannerBadge}</span>
-                        <span className="font-semibold text-sm truncate">{tr.bannerTitle}</span>
-                        <span className="text-indigo-200 text-xs hidden lg:inline">{tr.bannerCta}</span>
-                        <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                    </div>
+                    {isLoggedIn && (
+                        <div onClick={() => setView('reportsList')} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 cursor-pointer transition-colors flex justify-center items-center gap-3 group">
+                            <span className="bg-amber-400 text-amber-900 text-[10px] font-black px-2 py-0.5 rounded-sm uppercase tracking-wider flex-shrink-0 animate-pulse">{tr.bannerBadge}</span>
+                            <span className="font-semibold text-sm truncate">{tr.bannerTitle}</span>
+                            <span className="text-indigo-200 text-xs hidden lg:inline">{tr.bannerCta}</span>
+                            <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                        </div>
+                    )}
                     <nav className="flex justify-between items-center px-6 py-3 bg-white border-b border-slate-100 shadow-sm">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('landing')}>
                             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
@@ -532,6 +642,26 @@
                                 <span className="text-[10px] text-slate-400 font-medium tracking-wider whitespace-nowrap">{tr.platformEn}</span>
                             </div>
                         </div>
+
+                        {!isLoggedIn && (
+                            <div className="hidden md:flex flex-1 justify-center items-center gap-7">
+                                {[
+                                    { label: tr.navFeatures, id: 'features' },
+                                    { label: tr.navRoi, id: 'roi' },
+                                    { label: tr.navSubscribe, id: 'subscribe' },
+                                    { label: tr.navPricing, id: 'pricing' },
+                                ].map(item => (
+                                    <button key={item.id} onClick={() => scrollToSection(item.id)}
+                                        className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors whitespace-nowrap">
+                                        {item.label}
+                                    </button>
+                                ))}
+                                <button onClick={() => setView('contact')}
+                                    className="text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-1.5 whitespace-nowrap">
+                                    <Mail className="w-4 h-4" />{tr.navContact}
+                                </button>
+                            </div>
+                        )}
 
                         {(currentView === 'results' || currentView === 'profile') && isLoggedIn && (
                             <div className="hidden md:flex flex-1 mx-8 max-w-lg items-center gap-2 relative">
@@ -564,22 +694,24 @@
                         )}
 
                         <div className="flex gap-4 items-center">
-                            <div className="relative">
-                                <button onClick={() => setCompanyOpen(!companyOpen)} className="flex items-center gap-2 text-[15px] font-bold text-[#002f5d] hover:text-blue-700 transition-colors">
-                                    <Building2 className="w-5 h-5" />
-                                    <span>您好！ 華藝數位股份有限公司</span>
-                                </button>
-                                {companyOpen && (
-                                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-100 rounded-xl shadow-lg z-50 overflow-hidden">
-                                        {Object.keys(companyVersions).map(c => (
-                                            <button key={c} onClick={() => { setCurrentCompany(c); setCompanyOpen(false); }}
-                                                className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${currentCompany === c ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-700 hover:bg-slate-50'}`}>
-                                                {c}
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                            {isLoggedIn && (
+                                <div className="relative">
+                                    <button onClick={() => setCompanyOpen(!companyOpen)} className="flex items-center gap-2 text-[15px] font-bold text-[#002f5d] hover:text-blue-700 transition-colors">
+                                        <Building2 className="w-5 h-5" />
+                                        <span>您好！ 華藝數位股份有限公司</span>
+                                    </button>
+                                    {companyOpen && (
+                                        <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-100 rounded-xl shadow-lg z-50 overflow-hidden">
+                                            {Object.keys(companyVersions).map(c => (
+                                                <button key={c} onClick={() => { setCurrentCompany(c); setCompanyOpen(false); }}
+                                                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${currentCompany === c ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-700 hover:bg-slate-50'}`}>
+                                                    {c}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             <div className="relative">
                                 <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors px-2 py-1.5 rounded-lg hover:bg-slate-50">
                                     <Languages className="w-4 h-4" />
@@ -639,13 +771,13 @@
         // ─── DATABASE SHOWCASE ─────────────────────────────────────────
         // ─── ROI CALCULATOR ────────────────────────────────────────────
         const roiPlans = (tr) => ([
-            { name: tr.roiPlanStarter, target: tr.roiPlanStarterTarget, price: 350000, max: 30 },
-            { name: tr.roiPlanPro, target: tr.roiPlanProTarget, price: 600000, max: 80 },
-            { name: tr.roiPlanFlagship, target: tr.roiPlanFlagshipTarget, price: 1000000, max: Infinity },
+            { name: tr.roiPlanStarter, target: tr.roiPlanStarterTarget, price: 350000, max: 30, kwCount: 20, freq: tr.roiPlanStarterFreq },
+            { name: tr.roiPlanPro, target: tr.roiPlanProTarget, price: 600000, max: 80, kwCount: 50, freq: tr.roiPlanProFreq, featured: true },
+            { name: tr.roiPlanFlagship, target: tr.roiPlanFlagshipTarget, price: 1000000, max: Infinity, kwCount: 100, freq: tr.roiPlanFlagshipFreq },
         ]);
         const fmtNT = (n) => 'NT$ ' + Math.round(n).toLocaleString('en-US');
 
-        const ROICalculator = ({ tr, setIsLoggedIn }) => {
+        const ROICalculator = ({ tr, setView }) => {
             const [headcount, setHeadcount] = useState(80);
             const [salary, setSalary] = useState(1200000);
 
@@ -658,7 +790,7 @@
             const multiplier = (wastedCost / plan.price).toFixed(1);
 
             return (
-                <div className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+                <div id="roi" className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
                     <div className="absolute inset-0 dot-grid opacity-20"></div>
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-rose-500/10 rounded-full blur-[100px] pointer-events-none"></div>
                     <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -666,7 +798,7 @@
                             <span className="inline-flex items-center gap-1.5 bg-rose-500/15 text-rose-300 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-5">
                                 <Calculator className="w-3.5 h-3.5" />{tr.roiBadge}
                             </span>
-                            <h2 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight max-w-3xl mx-auto leading-tight">{tr.roiTitle}</h2>
+                            <h2 className="section-title-white text-3xl md:text-4xl mb-4 max-w-3xl mx-auto leading-tight">{tr.roiTitle}</h2>
                             <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed text-sm">{tr.roiSubtitle}</p>
                         </div>
 
@@ -715,8 +847,8 @@
                                     </div>
                                 </div>
 
-                                <button onClick={() => setIsLoggedIn(true)}
-                                    className="w-full sm:w-auto self-start px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-2xl transition-colors shadow-xl shadow-indigo-500/20 flex items-center gap-2.5">
+                                <button onClick={() => setView('contact')}
+                                    className="w-full sm:w-auto self-start px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-2xl transition-colors shadow-xl shadow-indigo-500/20 flex items-center gap-2.5">
                                     <Sparkles className="w-4 h-4" />{tr.roiCta}
                                 </button>
                             </div>
@@ -726,12 +858,159 @@
             );
         };
 
+        // ─── PRICING SECTION ───────────────────────────────────────────
+        const PricingSection = ({ tr, setView }) => {
+            const plans = roiPlans(tr);
+            return (
+                <div id="pricing" className="py-20 bg-white">
+                    <div className="max-w-6xl mx-auto px-6">
+                        <div className="text-center mb-14">
+                            <span className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-5">
+                                <Tag className="w-3.5 h-3.5" />{tr.pricingBadge}
+                            </span>
+                            <h2 className="section-title text-3xl md:text-4xl mb-4">{tr.pricingTitle}</h2>
+                            <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">{tr.pricingSubtitle}</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                            {plans.map((plan, i) => (
+                                <div key={plan.name} className={`relative rounded-3xl p-8 border transition-all card-hover ${plan.featured ? 'border-indigo-500 shadow-2xl shadow-indigo-500/10 md:-translate-y-4 bg-white' : 'border-slate-200 bg-white'}`}>
+                                    {plan.featured && (
+                                        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-black px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg whitespace-nowrap">
+                                            <Star className="w-3.5 h-3.5 fill-white" />{tr.pricingRecommendedBadge}
+                                        </span>
+                                    )}
+                                    <div className={`inline-block px-4 py-1.5 rounded-full text-sm font-black mb-5 ${i === 0 ? 'bg-teal-100 text-teal-700' : i === 1 ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-800 text-white'}`}>
+                                        {plan.name}
+                                    </div>
+                                    <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">{tr.pricingFeatureAudience}</div>
+                                    <div className="text-sm text-slate-600 mb-6 leading-relaxed min-h-[40px]">{plan.target}</div>
+
+                                    <div className="space-y-4 mb-8 border-t border-slate-100 pt-6">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm text-slate-500">{tr.pricingFeatureKeywords}</span>
+                                            <span className="font-black text-slate-900">{plan.kwCount} {tr.pricingKeywordUnit}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm text-slate-500">{tr.pricingFeatureAdjust}</span>
+                                            <span className="font-black text-slate-900">{plan.freq}</span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-3xl font-black text-slate-900 font-mono">{fmtNT(plan.price)}</span>
+                                        <span className="text-slate-400 text-sm">{tr.roiPerYear}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="flex justify-center mt-12">
+                            <button onClick={() => setView('contact')}
+                                className="px-9 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-2xl transition-colors shadow-xl shadow-indigo-500/20 flex items-center gap-2.5">
+                                <Sparkles className="w-4 h-4" />{tr.pricingCta}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // ─── CONTACT FORM PAGE ─────────────────────────────────────────
+        const ContactFormPage = ({ setView, tr }) => {
+            const [submitted, setSubmitted] = useState(false);
+            const [form, setForm] = useState({ company: '', name: '', email: '', phone: '', headcount: '', plan: tr.roiPlanPro, message: '' });
+            const handleChange = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }));
+            const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
+
+            if (submitted) {
+                return (
+                    <div className="min-h-[70vh] flex items-center justify-center px-4 animate-fadeIn">
+                        <div className="max-w-md w-full text-center">
+                            <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <Check className="w-8 h-8 text-emerald-500" />
+                            </div>
+                            <h2 className="text-2xl font-black text-slate-900 mb-3">{tr.contactSuccessTitle}</h2>
+                            <p className="text-slate-500 mb-8 leading-relaxed">{tr.contactSuccessDesc}</p>
+                            <button onClick={() => setView('landing')} className="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-md">
+                                {tr.backHome}
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="animate-fadeIn max-w-2xl mx-auto px-6 py-12 min-h-[70vh]">
+                    <button onClick={() => setView('landing')} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-indigo-600 mb-8 transition-colors font-medium">
+                        <ArrowLeft className="w-4 h-4" />{tr.backHome}
+                    </button>
+                    <div className="mb-10 text-center">
+                        <span className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-5">
+                            <Sparkles className="w-3.5 h-3.5" />{tr.contactPageBadge}
+                        </span>
+                        <h1 className="section-title text-3xl md:text-4xl mb-4">{tr.contactPageTitle}</h1>
+                        <p className="text-slate-500 max-w-lg mx-auto leading-relaxed">{tr.contactPageSubtitle}</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="bg-white border border-slate-100 rounded-3xl shadow-sm p-7 md:p-9 space-y-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5" />{tr.contactCompany}</label>
+                                <input required value={form.company} onChange={handleChange('company')} type="text"
+                                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><Users className="w-3.5 h-3.5" />{tr.contactName}</label>
+                                <input required value={form.name} onChange={handleChange('name')} type="text"
+                                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" />{tr.contactEmail}</label>
+                                <input required value={form.email} onChange={handleChange('email')} type="email"
+                                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" />{tr.contactPhone}</label>
+                                <input value={form.phone} onChange={handleChange('phone')} type="tel"
+                                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" />{tr.contactPlan}</label>
+                                <select value={form.plan} onChange={handleChange('plan')}
+                                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white">
+                                    {[tr.roiPlanStarter, tr.roiPlanPro, tr.roiPlanFlagship, tr.contactPlanUndecided].map(p => <option key={p} value={p}>{p}</option>)}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><Users className="w-3.5 h-3.5" />{tr.contactHeadcount}</label>
+                                <input value={form.headcount} onChange={handleChange('headcount')} type="number" min="1"
+                                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                            </div>
+                        </div>
+                        <div>
+                            <label className="text-xs font-bold text-slate-500 mb-1.5 flex items-center gap-1.5"><PenTool className="w-3.5 h-3.5" />{tr.contactMessage}</label>
+                            <textarea value={form.message} onChange={handleChange('message')} rows="4"
+                                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"></textarea>
+                        </div>
+                        <button type="submit"
+                            className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-2xl transition-colors shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2.5">
+                            <Send className="w-4 h-4" />{tr.contactSubmit}
+                        </button>
+                    </form>
+                </div>
+            );
+        };
+
         const DatabaseShowcase = ({ tr }) => (
-            <div className="py-20 bg-slate-900 relative overflow-hidden">
+            <div id="features" className="py-20 bg-slate-900 relative overflow-hidden">
                 <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(99,102,241,0.12) 1.5px,transparent 1.5px)', backgroundSize: '32px 32px' }}></div>
                 <div className="max-w-6xl mx-auto px-6 relative z-10">
                     <div className="text-center mb-14">
-                        <h2 className="text-3xl font-black text-white mb-4 tracking-tight">{tr.dbTitle}</h2>
+                        <h2 className="section-title-white text-3xl md:text-4xl mb-4">{tr.dbTitle}</h2>
                         <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">{tr.dbSubtitle}</p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-3 mb-14">
@@ -770,22 +1049,28 @@
         // ─── SUBSCRIBED UPDATES ────────────────────────────────────────
         const SubscribedUpdates = ({ isLoggedIn, setView, setIsLoggedIn, tr, setCurrentDomain, customKeywords, readTopics, markAsRead }) => {
             if (!isLoggedIn) return (
-                <div className="max-w-6xl mx-auto px-6 py-14 relative">
-                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-2xl" style={{ background: 'linear-gradient(to bottom,rgba(248,250,252,0) 0%,rgba(248,250,252,0.97) 40%)' }}>
-                        <div className="text-center">
-                            <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <Lock className="w-6 h-6 text-indigo-400" />
-                            </div>
-                            <h3 className="text-xl font-black text-slate-800 mb-2">{tr.subLockTitle}</h3>
-                            <p className="text-slate-500 mb-5 max-w-sm text-sm">{tr.subLockDesc}</p>
-                            <button onClick={() => setIsLoggedIn(true)} className="px-7 py-2.5 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 shadow-md transition-all text-sm">{tr.loginCta}</button>
-                        </div>
+                <div id="subscribe" className="max-w-6xl mx-auto px-6 py-14">
+                    <div className="text-center mb-10">
+                        <span className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-5">
+                            <Bell className="w-3.5 h-3.5" />{tr.subIntroBadge}
+                        </span>
+                        <h2 className="section-title text-3xl md:text-4xl mb-4">{tr.subIntroTitle}</h2>
+                        <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">{tr.subIntroDesc}</p>
                     </div>
-                    <div className="opacity-20 select-none pointer-events-none blur-sm">
-                        <div className="flex items-center gap-3 mb-8 pb-4 border-b border-slate-100"><Bell className="w-5 h-5 text-indigo-500" /><h2 className="text-xl font-black text-slate-800">{tr.subTitle}</h2></div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            {[0, 1, 2].map(i => <div key={i} className="bg-white rounded-xl border border-slate-100 p-6 h-40"></div>)}
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        {[
+                            { icon: Bell, color: 'indigo', title: tr.subIntroF1Title, desc: tr.subIntroF1Desc },
+                            { icon: TrendingUp, color: 'rose', title: tr.subIntroF2Title, desc: tr.subIntroF2Desc },
+                            { icon: Users, color: 'emerald', title: tr.subIntroF3Title, desc: tr.subIntroF3Desc },
+                        ].map(({ icon: Icon, color, title, desc }) => (
+                            <div key={title} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 card-hover">
+                                <div className={`w-11 h-11 bg-${color}-50 rounded-xl flex items-center justify-center text-${color}-500 mb-4`}>
+                                    <Icon className="w-5 h-5" />
+                                </div>
+                                <h3 className="text-sm font-black text-slate-800 mb-2">{title}</h3>
+                                <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             );
@@ -1100,7 +1385,7 @@
             };
 
             return (
-                <div className="max-w-7xl mx-auto px-4 py-12 animate-fadeIn">
+                <div className="max-w-6xl mx-auto px-4 py-12 animate-fadeIn">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200">
                         <div>
                             <h1 className="text-2xl font-black text-slate-900">{tr.allSubTitle}</h1>
@@ -1177,33 +1462,65 @@
         };
 
         // ─── REPORT ACCESS ─────────────────────────────────────────────
-        const ReportAccess = ({ setView, isLoggedIn, setIsLoggedIn, tr }) => (
-            <div className="bg-indigo-700 py-16 px-6 relative overflow-hidden">
-                <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px)', backgroundSize: '24px 24px' }}></div>
-                {!isLoggedIn && (
-                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-indigo-900/70 backdrop-blur-sm">
-                        <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4">
-                            <Lock className="w-6 h-6 text-indigo-200" />
+        const mechItems = (tr) => ([
+            { before: tr.mechCol1Before, after: tr.mechCol1After, pain: tr.mechCol1Pain, benefit: tr.mechCol1Benefit },
+            { before: tr.mechCol2Before, after: tr.mechCol2After, pain: tr.mechCol2Pain, benefit: tr.mechCol2Benefit },
+            { before: tr.mechCol3Before, after: tr.mechCol3After, pain: tr.mechCol3Pain, benefit: tr.mechCol3Benefit },
+        ]);
+
+        const ReportAccess = ({ tr }) => {
+            const items = mechItems(tr);
+            return (
+                <div className="py-24 bg-slate-50 border-t border-slate-100 relative overflow-hidden">
+                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent"></div>
+                    
+                    <div className="max-w-6xl mx-auto px-6 relative z-10">
+                        <div className="text-center mb-16">
+                            <span className="inline-flex items-center gap-2 bg-indigo-100/80 text-indigo-700 text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest mb-6 shadow-sm border border-indigo-200/50">
+                                <Sparkles className="w-4 h-4 text-indigo-500" />{tr.mechBadge}
+                            </span>
+                            <h2 className="section-title text-3xl md:text-4xl mb-4 leading-tight">{tr.mechTitle}</h2>
                         </div>
-                        <h3 className="text-xl font-black text-white mb-2">{tr.reportLockTitle}</h3>
-                        <p className="text-indigo-200 text-sm mb-5 text-center max-w-sm">{tr.reportLockDesc}</p>
-                        <button onClick={() => setIsLoggedIn(true)} className="px-7 py-2.5 bg-white text-indigo-800 font-bold rounded-full hover:bg-indigo-50 shadow-lg transition-all">{tr.loginCta}</button>
-                    </div>
-                )}
-                <div className={`max-w-4xl mx-auto text-center relative z-0 ${!isLoggedIn ? 'opacity-20 select-none pointer-events-none blur-sm' : ''}`}>
-                    <h2 className="text-3xl font-black text-white mb-4 tracking-tight">{tr.reportSecTitle}</h2>
-                    <p className="text-indigo-200 mb-8 max-w-xl mx-auto leading-relaxed">{tr.reportSecDesc}</p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <button onClick={() => setView('reportsList')} className="px-7 py-3 bg-white text-indigo-800 font-bold rounded-xl shadow-lg hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2">
-                            <FileText className="w-4 h-4" />{tr.reportViewBtn}
-                        </button>
-                        <button className="px-7 py-3 border border-indigo-400 text-white font-bold rounded-xl hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2">
-                            <Download className="w-4 h-4" />{tr.reportDlBtn}
-                        </button>
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            {items.map((item, i) => (
+                                <div key={i} className="bg-white shadow-[0px_0px_15px_rgba(0,0,0,0.09)] p-9 space-y-6 relative overflow-hidden flex flex-col group hover:-translate-y-2 transition-transform duration-300 rounded-2xl">
+                                    <div className="w-24 h-24 bg-indigo-500 rounded-full absolute -right-5 -top-7 group-hover:scale-110 transition-transform duration-300">
+                                        <p className="absolute bottom-6 left-7 text-white text-2xl font-black">{String(i + 1).padStart(2, '0')}</p>
+                                    </div>
+                                    
+                                    <div className="flex flex-col gap-2 mt-4 relative z-10">
+                                        <div className="text-sm font-semibold text-slate-400">
+                                            {item.before}
+                                        </div>
+                                        <div className="text-indigo-400">
+                                            <ChevronDown className="w-5 h-5" />
+                                        </div>
+                                        <div className="font-bold text-xl text-slate-800">
+                                            {item.after}
+                                        </div>
+                                    </div>
+
+                                    <div className="w-full space-y-4 pt-6 border-t border-slate-100 mt-auto relative z-10">
+                                        <div className="flex items-start gap-3">
+                                            <div className="mt-1 flex-shrink-0">
+                                                <X className="w-4 h-4 text-rose-500" strokeWidth={1.5} />
+                                            </div>
+                                            <p className="text-sm text-slate-500 leading-6">{item.pain}</p>
+                                        </div>
+                                        <div className="flex items-start gap-3">
+                                            <div className="mt-1 flex-shrink-0">
+                                                <Check className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
+                                            </div>
+                                            <p className="text-sm text-slate-600 leading-6">{item.benefit}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        };
 
         // ─── SEARCH RESULTS ────────────────────────────────────────────
         const SearchResultsPage = ({ setView, currentDomain, setCurrentAuthor, tr }) => {
@@ -1228,7 +1545,7 @@
             const tierColor = { S: 'bg-amber-100 text-amber-700 border-amber-200', A: 'bg-indigo-100 text-indigo-700 border-indigo-200', B: 'bg-slate-100 text-slate-600 border-slate-200' };
 
             return (
-                <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-12 gap-6 animate-fadeIn">
+                <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-12 gap-6 animate-fadeIn">
                     {/* Sidebar filter */}
                     <div className="col-span-12 lg:col-span-3">
                         <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm sticky top-24">
@@ -1373,7 +1690,7 @@
         const AuthorProfilePage = ({ author, setView, tr }) => {
             if (!author) return null;
             return (
-                <div className="max-w-7xl mx-auto px-4 py-8 animate-fadeIn">
+                <div className="max-w-6xl mx-auto px-4 py-8 animate-fadeIn">
                     <button onClick={() => setView('results')} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-indigo-600 mb-6 transition-colors font-medium">
                         <ArrowLeft className="w-4 h-4" />{tr.backToResults}
                     </button>
@@ -1687,6 +2004,42 @@
             </div>
         );
 
+        // ─── QUARTERLY REPORTS BLOCK ───────────────────────────────────
+        const QuarterlyReportsBlock = ({ setView, tr }) => (
+            <div className="bg-indigo-700 py-20 px-6 relative overflow-hidden">
+                <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px)', backgroundSize: '24px 24px' }}></div>
+                <div className="max-w-4xl mx-auto text-center relative z-10">
+                    <h2 className="section-title-white text-3xl md:text-4xl mb-4 tracking-tight">{tr.reportSecTitle}</h2>
+                    <p className="text-indigo-200 mb-8 max-w-xl mx-auto leading-relaxed">{tr.reportSecDesc}</p>
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        <button onClick={() => setView('reportsList')} className="px-7 py-3 bg-white text-indigo-800 font-bold rounded-xl shadow-lg hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2">
+                            <FileText className="w-4 h-4" />{tr.reportViewBtn}
+                        </button>
+                        <button className="px-7 py-3 border border-indigo-400 text-white font-bold rounded-xl hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2">
+                            <Download className="w-4 h-4" />{tr.reportDlBtn}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // ─── FOOTER ────────────────────────────────────────────────────
+        const Footer = () => (
+            <footer className="bg-slate-900 border-t border-slate-800 py-12">
+                <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+                    <div className="text-slate-400 text-sm space-y-2 text-center md:text-left">
+                        <div className="font-bold text-slate-200 text-base mb-4">華藝數位股份有限公司 Airiti Inc.</div>
+                        <p>234 台灣新北市永和區成功路一段80號18樓</p>
+                        <p>Email: lib@airiti.com</p>
+                        <p>統一編號 : 70696235</p>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm mt-4 md:mt-0">
+                        <a href="https://www.airiti.com/tw/One-Page/index.html" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors font-medium">關於華藝</a>
+                    </div>
+                </div>
+            </footer>
+        );
+
         // ─── MAIN APP ──────────────────────────────────────────────────
         const App = () => {
             const [view, setView] = useState(() => {
@@ -1906,28 +2259,42 @@
                                                     </div>
                                                 ))}
                                             </div>
-                                            <button onClick={() => setIsLoggedIn(true)} className="px-10 py-4 bg-indigo-600 text-white font-black text-base rounded-2xl hover:bg-indigo-500 transition-colors shadow-2xl shadow-indigo-500/30 flex items-center gap-3 mx-auto">
-                                                <Shield className="w-5 h-5" />{tr.loginBtn}
+                                            <button onClick={() => setView('contact')} className="px-10 py-4 bg-indigo-600 text-white font-medium text-base rounded-2xl hover:bg-indigo-500 transition-colors shadow-2xl shadow-indigo-500/30 flex items-center gap-3 mx-auto">
+                                                <Sparkles className="w-5 h-5" />{tr.heroCta}
                                             </button>
-                                            <p className="text-slate-500 text-xs mt-4">{tr.loginCta}</p>
                                         </div>
                                     )}
                                 </div>
                             </div>
 
-                            {!isLoggedIn && <ROICalculator tr={tr} setIsLoggedIn={setIsLoggedIn} />}
-                            <DatabaseShowcase tr={tr} />
+                            {!isLoggedIn && (
+                                <>
+                                    <ROICalculator tr={tr} setView={setView} />
+                                    <DatabaseShowcase tr={tr} />
+                                    <ReportAccess tr={tr} />
+                                </>
+                            )}
                             <SubscribedUpdates isLoggedIn={isLoggedIn} setView={navigateTo} setIsLoggedIn={setIsLoggedIn} tr={tr} setCurrentDomain={setCurrentDomain} customKeywords={customKeywords} readTopics={readTopics} markAsRead={markAsRead} />
-                            <ReportAccess setView={setView} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} tr={tr} />
+                            {!isLoggedIn && (
+                                <>
+                                    <PricingSection tr={tr} setView={setView} />
+                                </>
+                            )}
+                            {isLoggedIn && (
+                                <QuarterlyReportsBlock setView={setView} tr={tr} />
+                            )}
                         </div>
                     )}
 
                     {view === 'allSubscriptions' && <AllSubscriptionsPage setView={setView} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} tr={tr} customKeywords={customKeywords} setCustomKeywords={setCustomKeywords} readTopics={readTopics} markAsRead={markAsRead} />}
                     {view === 'gate' && <LoginGatePage setIsLoggedIn={(v) => { setIsLoggedIn(v); if (v) setView('results'); }} setView={setView} tr={tr} />}
                     {view === 'reportsList' && <ReportsListPage setView={setView} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} tr={tr} />}
+                    {view === 'contact' && <ContactFormPage setView={setView} tr={tr} />}
                     {view === 'reportDetail' && <ReportDetailPage setView={setView} tr={tr} customKeywords={customKeywords} />}
                     {view === 'results' && (isLoggedIn ? <SearchResultsPage setView={setView} currentDomain={currentDomain} setCurrentAuthor={setCurrentAuthor} tr={tr} /> : <LoginGatePage setIsLoggedIn={(v) => { setIsLoggedIn(v); if (v) setView('results'); }} setView={setView} tr={tr} />)}
                     {view === 'profile' && (isLoggedIn ? <AuthorProfilePage author={currentAuthor} setView={setView} tr={tr} /> : <LoginGatePage setIsLoggedIn={(v) => { setIsLoggedIn(v); if (v) setView('profile'); }} setView={setView} tr={tr} />)}
+                    
+                    <Footer />
                 </div>
             );
         };
